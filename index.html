@@ -6,6 +6,14 @@
   <title>Multi-step Form</title>
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <style>
+
+.success-green {
+  background-color: #1b9e1b!important;
+}
+
+  </style>
 </head>
 <body>
   <div class="container">
@@ -14,10 +22,11 @@
         <div class="col-md-3">
           <div class="sidebar">
             <ul class="list-group">
-              <li class="list-group-item active">Step 1 - Your Info</li>
-              <li class="list-group-item">Step 2 - Select Plan</li>
-              <li class="list-group-item">Step 3 - Add-ons</li>
-              <li class="list-group-item">Step 4 - Summary</li>
+              <li class="list-group-item active" data-step="1">Step 1 - Your Info</li>
+              <li class="list-group-item" data-step="2">Step 2 - Select Plan</li>
+              <li class="list-group-item" data-step="3">Step 3 - Add-ons</li>
+              <li class="list-group-item" data-step="4">Step 4 - Summary</li>
+              <li class="list-group-item" data-step="5">Step 5 - Submission Complete</li>
             </ul>
           </div>
         </div>
@@ -41,7 +50,7 @@
               <input type="tel" class="form-control" id="phone" name="phone" placeholder="e.g. +1 234 567 890" required>
             </div>
 
-            <button type="button" class="btn btn-primary" onclick="nextStep(1)">Next Step</button>
+            <button type="button" class="btn btn-primary" data-step="2">Next Step</button>
           </section>
 
           <!-- Step 2: Select Plan -->
@@ -63,8 +72,8 @@
               </label>
             </div>
 
-            <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Go Back</button>
-            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next Step</button>
+            <button type="button" class="btn btn-secondary" data-step="1">Go Back</button>
+            <button type="button" class="btn btn-primary" data-step="3">Next Step</button>
           </section>
 
           <!-- Step 3: Pick Add-ons -->
@@ -93,8 +102,8 @@
               </label>
             </div>
 
-            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Go Back</button>
-            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next Step</button>
+            <button type="button" class="btn btn-secondary" data-step="2">Go Back</button>
+            <button type="button" class="btn btn-primary" data-step="4">Next Step</button>
           </section>
 
           <!-- Step 4: Summary -->
@@ -103,25 +112,25 @@
             <div id="summary-details">
               <p>Selected Plan:</p>
               <p id="selected-plan"></p>
-                <!-- Selected plan will be populated dynamically with JavaScript -->
+              <!-- Selected plan will be populated dynamically with JavaScript -->
               <p>Selected Add-ons:</p>
               <ul id="selected-addons">
                 <!-- Selected add-ons will be populated dynamically with JavaScript -->
               </ul>
 
               <p>Total (per month/year): <span id="total-amount"></span></p>
-              <!-- total amount for month/year of sum of plan and add ons will be populated dynamically with JavaScript -->
+              <!-- Total amount for month/year of sum of plan and add-ons will be populated dynamically with JavaScript -->
             </div>
 
-            <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Go Back</button>
-            <button type="button" class="btn btn-primary" onclick="nextStep(4)">Confirm</button>
+            <button type="button" class="btn btn-secondary" data-step="3">Go Back</button>
+            <button type="button" class="btn btn-primary" data-step="5">Confirm</button>
           </section>
 
           <!-- Step 5: Thank You -->
-      <section id="step5" class="step" style="display: none;">
-        <h2>Thank You!</h2>
-        <p>Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at <a href="mailto:support@loremgaming.com">support@loremgaming.com</a>.</p>
-      </section>
+          <section id="step5" class="step" style="display: none;">
+            <h2>Thank You!</h2>
+            <p>Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at <a href="mailto:support@loremgaming.com">support@loremgaming.com</a>.</p>
+          </section>
         </div>
       </div>
     </form>
@@ -134,15 +143,23 @@
       let currentStep = 0;
 
       function showStep(stepIndex) {
-        if (stepIndex >= 0 && stepIndex < steps.length) {
-          steps[currentStep].style.display = "none";
-          sidebarItems[currentStep].classList.remove("active");
-
-          currentStep = stepIndex;
-          steps[currentStep].style.display = "block";
-          sidebarItems[currentStep].classList.add("active");
-        }
+    if (stepIndex >= 0 && stepIndex < steps.length) {
+      steps[currentStep].style.display = "none";
+      sidebarItems[currentStep].classList.remove("active");
+      // Remove the Bootstrap success background class from the current step if it's Step 5
+      if (currentStep === 4) {
+        sidebarItems[currentStep].classList.remove("success-green");
       }
+
+      currentStep = stepIndex;
+      steps[currentStep].style.display = "block";
+      sidebarItems[currentStep].classList.add("active");
+      // Add the Bootstrap success background class to Step 5
+      if (currentStep === 4) {
+        sidebarItems[currentStep].classList.add("success-green");
+      }
+    }
+  }
 
       function nextStep() {
         if (currentStep < steps.length - 1) {
@@ -171,12 +188,13 @@
       document.getElementById("step4").querySelectorAll("button")[1].addEventListener("click", nextStep);
     });
   </script>
-  
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
 
 
       
