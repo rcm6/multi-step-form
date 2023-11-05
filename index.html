@@ -5,114 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Multi-step Form</title>
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
   <div class="container">
     <form id="multipart-form" enctype="multipart/form-data">
-      <div class="sidebar">
-        <ul>
-          <li class="active">Step 1 - Your Info</li>
-          <li>Step 2 - Select Plan</li>
-          <li>Step 3 - Add-ons</li>
-          <li>Step 4 - Summary</li>
-        </ul>
-      </div>
-
-      <!-- Step 1: Your Info -->
-      <section id="step1" class="step">
-        <h2>Your Info</h2>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="e.g. Stephen King" required>
-
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" placeholder="e.g. stephenking@lorem.com" required>
-
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" placeholder="e.g. +1 234 567 890" required>
-
-        <button type="button" onclick="nextStep(1)">Next Step</button>
-      </section>
-
-      <!-- Step 2: Select Plan -->
-      <section id="step2" class="step" style="display: none;">
-        <h2>Select Plan</h2>
-        <p>You have the option of monthly or yearly billing.</p>
-
-        <div class="form-check">
-          <input class="form-check-input" type="radio" id="monthly" name="billing" value="monthly" required>
-          <label class="form-check-label" for="monthly">
-            Arcade - $9/mo
-          </label>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="sidebar">
+            <ul class="list-group">
+              <li class="list-group-item active">Step 1 - Your Info</li>
+              <li class="list-group-item">Step 2 - Select Plan</li>
+              <li class="list-group-item">Step 3 - Add-ons</li>
+              <li class="list-group-item">Step 4 - Summary</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="form-check">
-          <input class="form-check-input" type="radio" id="yearly" name="billing" value="yearly" required>
-          <label class="form-check-label" for="yearly">
-            Arcade - $90/year
-          </label>
-        </div>
+        <div class="col-md-9">
+          <!-- Step 1: Your Info -->
+          <section id="step1" class="step">
+            <h2>Your Info</h2>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Stephen King" required>
+            </div>
 
-        <button type="button" onclick="prevStep(1)">Go Back</button>
-        <button type="button" onclick="nextStep(2)">Next Step</button>
-        
-      </section>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="e.g. stephenking@lorem.com" required>
+            </div>
 
-      <!-- Step 3: Pick Add-ons -->
-      <section id="step3" class="step" style="display: none;">
-        <h2>Pick Add-ons</h2>
-        <p>Add-ons help enhance your gaming experience.</p>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" class="form-control" id="phone" name="phone" placeholder="e.g. +1 234 567 890" required>
+            </div>
 
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="onlineService" name="addons" value="onlineService">
-          <label class="form-check-label" for="onlineService">
-            Online Service - Access to multiplayer games +$1/mo
-          </label>
-        </div>
+            <button type="button" class="btn btn-primary" onclick="nextStep(1)">Next Step</button>
+          </section>
 
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="largerStorage" name="addons" value="largerStorage">
-          <label class="form-check-label" for="largerStorage">
-            Larger Storage - Extra 1TB of cloud save +$2/mo
-          </label>
-        </div>
+          <!-- Step 2: Select Plan -->
+          <section id="step2" class="step" style="display: none;">
+            <h2>Select Plan</h2>
+            <p>You have the option of monthly or yearly billing.</p>
 
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="customProfile" name="addons" value="customProfile">
-          <label class="form-check-label" for="customProfile">
-            Customizable Profile - Custom theme on your profile +$2/mo
-          </label>
-        </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="monthly" name="billing" value="monthly" required>
+              <label class="form-check-label" for="monthly">
+                Arcade - $9/mo
+              </label>
+            </div>
 
-        <button type="button" onclick="prevStep(2)">Go Back</button>
-        <button type="button" onclick="nextStep(3)">Next Step</button>
-        
-      </section>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="yearly" name="billing" value="yearly" required>
+              <label class="form-check-label" for="yearly">
+                Arcade - $90/year
+              </label>
+            </div>
 
-      <!-- Step 4: Summary -->
-      <section id="step4" class="step" style="display: none;">
-        <h2>Summary</h2>
-        <div id="summary-details">
-          <p>Selected Plan:</p>
-          <p id="selected-plan"></p>
-            <!-- Selected plan will be populated dynamically with JavaScript -->
-          <p>Selected Add-ons:</p>
-          <ul id="selected-addons">
-            <!-- Selected add-ons will be populated dynamically with JavaScript -->
-          </ul>
+            <button type="button" class="btn btn-secondary" onclick="prevStep(1)">Go Back</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next Step</button>
+          </section>
 
-          <p>Total (per month/year): <span id="total-amount"></span></p>
-          <!-- total amount for month/year of sum of plan and add ons will be populated dynamically with JavaScript -->
-        </div>
+          <!-- Step 3: Pick Add-ons -->
+          <section id="step3" class="step" style="display: none;">
+            <h2>Pick Add-ons</h2>
+            <p>Add-ons help enhance your gaming experience.</p>
 
-        <button type="button" onclick="prevStep(3)">Go Back</button>
-        <button type="button" onclick="submitForm()">Confirm</button>
-      </section>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="onlineService" name="addons" value="onlineService">
+              <label class="form-check-label" for="onlineService">
+                Online Service - Access to multiplayer games +$1/mo
+              </label>
+            </div>
 
-      <!-- Step 5: Thank You -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="largerStorage" name="addons" value="largerStorage">
+              <label class="form-check-label" for="largerStorage">
+                Larger Storage - Extra 1TB of cloud save +$2/mo
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="customProfile" name="addons" value="customProfile">
+              <label class="form-check-label" for="customProfile">
+                Customizable Profile - Custom theme on your profile +$2/mo
+              </label>
+            </div>
+
+            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Go Back</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next Step</button>
+          </section>
+
+          <!-- Step 4: Summary -->
+          <section id="step4" class="step" style="display: none;">
+            <h2>Summary</h2>
+            <div id="summary-details">
+              <p>Selected Plan:</p>
+              <p id="selected-plan"></p>
+                <!-- Selected plan will be populated dynamically with JavaScript -->
+              <p>Selected Add-ons:</p>
+              <ul id="selected-addons">
+                <!-- Selected add-ons will be populated dynamically with JavaScript -->
+              </ul>
+
+              <p>Total (per month/year): <span id="total-amount"></span></p>
+              <!-- total amount for month/year of sum of plan and add ons will be populated dynamically with JavaScript -->
+            </div>
+
+            <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Go Back</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(4)">Confirm</button>
+          </section>
+
+          <!-- Step 5: Thank You -->
       <section id="step5" class="step" style="display: none;">
         <h2>Thank You!</h2>
         <p>Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at <a href="mailto:support@loremgaming.com">support@loremgaming.com</a>.</p>
       </section>
+        </div>
+      </div>
     </form>
   </div>
 
@@ -121,67 +132,51 @@
       const steps = document.querySelectorAll(".step");
       const sidebarItems = document.querySelectorAll(".sidebar ul li");
       let currentStep = 0;
-  
+
       function showStep(stepIndex) {
         if (stepIndex >= 0 && stepIndex < steps.length) {
           steps[currentStep].style.display = "none";
           sidebarItems[currentStep].classList.remove("active");
-  
+
           currentStep = stepIndex;
           steps[currentStep].style.display = "block";
           sidebarItems[currentStep].classList.add("active");
         }
       }
-  
+
       function nextStep() {
         if (currentStep < steps.length - 1) {
           showStep(currentStep + 1);
         }
       }
-  
+
       function prevStep() {
         if (currentStep > 0) {
           showStep(currentStep - 1);
         }
       }
-  
+/*
       function submitForm() {
         // form submission logic here
         // For now, just go to Step 5
-        showStep(5);
+        showStep(4);
       }
-  
-      document.getElementById("step1").querySelector("button").addEventListener("click", function () {
-        nextStep();
-      });
-  
-      document.getElementById("step2").querySelectorAll("button")[0].addEventListener("click", function () {
-        prevStep();
-      });
-  
-      document.getElementById("step2").querySelectorAll("button")[1].addEventListener("click", function () {
-        nextStep();
-      });
-  
-      document.getElementById("step3").querySelectorAll("button")[0].addEventListener("click", function () {
-        prevStep();
-      });
-  
-      document.getElementById("step3").querySelectorAll("button")[1].addEventListener("click", function () {
-        nextStep();
-      });
-  
-      document.getElementById("step4").querySelectorAll("button")[0].addEventListener("click", function () {
-        prevStep();
-      });
-  
-      document.getElementById("step4").querySelectorAll("button")[1].addEventListener("click", function () {
-        nextStep();
-      });
-});
-
-
+*/
+      document.getElementById("step1").querySelector("button").addEventListener("click", nextStep);
+      document.getElementById("step2").querySelectorAll("button")[0].addEventListener("click", prevStep);
+      document.getElementById("step2").querySelectorAll("button")[1].addEventListener("click", nextStep);
+      document.getElementById("step3").querySelectorAll("button")[0].addEventListener("click", prevStep);
+      document.getElementById("step3").querySelectorAll("button")[1].addEventListener("click", nextStep);
+      document.getElementById("step4").querySelectorAll("button")[0].addEventListener("click", prevStep);
+      document.getElementById("step4").querySelectorAll("button")[1].addEventListener("click", nextStep);
+    });
   </script>
   
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+      
